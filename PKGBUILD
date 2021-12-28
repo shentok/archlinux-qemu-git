@@ -85,11 +85,9 @@ makedepends=(
   zlib
   zstd 
 )
-source=(git+https://gitlab.com/qemu-project/qemu.git
-        qemu-guest-agent.service
+source=(qemu-guest-agent.service
         65-kvm.rules)
-sha256sums=('SKIP'
-            'c39bcde4a09165e64419fd2033b3532378bba84d509d39e2d51694d44c1f8d88'
+sha256sums=('c39bcde4a09165e64419fd2033b3532378bba84d509d39e2d51694d44c1f8d88'
             'a66f0e791b16b03b91049aac61a25950d93e962e1b2ba64a38c6ad7f609b532c')
 
 case $CARCH in
@@ -98,13 +96,13 @@ case $CARCH in
 esac
 
 pkgver() {
-  cd "${srcdir}/${_gitname}"
+  cd "${srcdir}"
   git describe --long --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g' | cut -c2-47
 }
 
 prepare() {
-  cd "${srcdir}/${_gitname}"
-  mkdir build-{full,headless}
+  cd "${srcdir}/.."
+  mkdir -p build-{full,headless}
   mkdir -p extra-arch-{full,headless}/usr/{bin,share/qemu}
 }
 
@@ -129,9 +127,12 @@ build() {
 
 _build() (
   
-  cd ${srcdir}/${_gitname}/build-$1
+  cd ${srcdir}/../build-$1
 
-    ../configure \
+  unset CFLAGS
+  unset CXXFLAGS
+
+  ${srcdir}/configure \
     --prefix=/usr \
     --sysconfdir=/etc \
     --localstatedir=/var \
@@ -267,7 +268,7 @@ _package() {
   install=qemu.install
   options=(!strip !emptydirs)
 
-  DESTDIR="$pkgdir" ninja -C "${srcdir}/${_gitname}/build-$1" install "${@:2}"
+  DESTDIR="$pkgdir" ninja -C "${srcdir}/../build-$1" install "${@:2}"
 
   # systemd stuff
   install -Dm644 65-kvm.rules "$pkgdir/usr/lib/udev/rules.d/65-kvm.rules"
@@ -302,7 +303,7 @@ _package() {
       system-${_corearch}) continue ;;
     esac
 
-    mv "$_bin" "$srcdir/$_gitname/extra-arch-$1/usr/bin"
+    mv "$_bin" "$srcdir/../extra-arch-$1/usr/bin"
   done
 
   cd ../share/qemu
@@ -328,7 +329,7 @@ _package() {
       trace-events*) continue ;;
     esac
 
-    mv "$_blob" "$srcdir/$_gitname/extra-arch-$1/usr/share/qemu"
+    mv "$_blob" "$srcdir/../extra-arch-$1/usr/share/qemu"
   done
 
   # provided by edk2-ovmf package
@@ -376,7 +377,7 @@ package_qemu-arch-extra-git() {
   provides=(qemu-arch-extra)
   conflicts=(qemu-arch-extra qemu-emulators-full)
 
-  mv -v "$srcdir/$_gitname/extra-arch-full/usr" "$pkgdir"
+  mv -v "$srcdir/../extra-arch-full/usr" "$pkgdir"
 }
 
 package_qemu-headless-arch-extra-git() {
@@ -415,7 +416,7 @@ package_qemu-headless-arch-extra-git() {
   conflicts=(qemu-headless-arch-extra qemu-emulators-full)
   provides=(qemu-headless-arch-extra)
 
-  mv -v "$srcdir/$_gitname/extra-arch-headless/usr" "$pkgdir"
+  mv -v "$srcdir/../extra-arch-headless/usr" "$pkgdir"
 }
 
 package_qemu-block-iscsi-git() {
@@ -424,7 +425,7 @@ package_qemu-block-iscsi-git() {
   conflicts=(qemu-block-iscsi)
   provides=(qemu-block-iscsi)
 
-  install -vDm 755 "$srcdir/$_gitname/build-full/block-iscsi.so" -t "$pkgdir/usr/lib/qemu/"
+  install -vDm 755 "$srcdir/../build-full/block-iscsi.so" -t "$pkgdir/usr/lib/qemu/"
 }
 
 package_qemu-block-gluster-git() {
@@ -433,7 +434,7 @@ package_qemu-block-gluster-git() {
   conflicts=(qemu-block-gluster)
   provides=(qemu-block-gluster)
 
-  install -vDm 755 "$srcdir/$_gitname/build-full/block-gluster.so" -t "$pkgdir/usr/lib/qemu/"
+  install -vDm 755 "$srcdir/../build-full/block-gluster.so" -t "$pkgdir/usr/lib/qemu/"
 }
 
 package_qemu-guest-agent-git() {
@@ -443,9 +444,9 @@ package_qemu-guest-agent-git() {
   provides=(qemu-guest-agent)
   install=qemu-guest-agent.install
 
-  install -vDm 755 "$srcdir/$_gitname/build-full/qga/qemu-ga" -t "$pkgdir/usr/bin/"
+  install -vDm 755 "$srcdir/../build-full/qga/qemu-ga" -t "$pkgdir/usr/bin/"
   install -vDm 644 "$srcdir/qemu-guest-agent.service" -t "$pkgdir/usr/lib/systemd/system/"
-  install -vDm 755 "$srcdir/$_gitname/scripts/qemu-guest-agent/fsfreeze-hook" -t "$pkgdir/etc/qemu/"
+  install -vDm 755 "$srcdir/scripts/qemu-guest-agent/fsfreeze-hook" -t "$pkgdir/etc/qemu/"
 }
 
 # vim:set ts=2 sw=2 et:
