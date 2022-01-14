@@ -137,6 +137,7 @@ _build() (
     --smbd=/usr/bin/smbd \
     --enable-modules \
     --enable-sdl \
+    --enable-xen \
     --disable-werror #\
     #"${@:2}"
 
