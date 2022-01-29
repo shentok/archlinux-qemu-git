@@ -9,9 +9,7 @@ pkgbase=qemu-git
 _gitname=qemu
 pkgname=(
   qemu-git
-  qemu-headless-git
   qemu-arch-extra-git
-  qemu-headless-arch-extra-git
   qemu-block-{iscsi,gluster}-git
   qemu-guest-agent-git
 )
@@ -101,27 +99,12 @@ pkgver() {
 
 prepare() {
   cd "${srcdir}/.."
-  mkdir -p build-{full,headless}
-  mkdir -p extra-arch-{full,headless}/usr/{bin,share/qemu}
+  mkdir -p build-full
+  mkdir -p extra-arch-full/usr/{bin,share/qemu}
 }
 
 build() {
   _build full
-
-  _build headless \
-    --audio-drv-list= \
-    --disable-sdl \
-    --disable-gtk \
-    --disable-vte \
-    --disable-brlapi \
-    --disable-opengl \
-    --disable-dbus-display \
-    --disable-virglrenderer \
-    --disable-alsa \
-    --disable-jack \
-    --disable-oss \
-    --disable-pa \
-    --disable-sdl
 }
 
 _build() (
@@ -202,58 +185,11 @@ package_qemu-git() {
     'brltty: for braille device support'
     'qemu-arch-extra-git: extra architectures support'
   )
-  conflicts=('qemu-headless' 'qemu' 'qemu-desktop')
-  provides=('qemu-headless' 'qemu')
+  conflicts=('qemu' 'qemu-desktop')
+  provides=('qemu')
   replaces=(qemu-kvm)
 
   _package full
-}
-
-package_qemu-headless-git() {
-  pkgdesc="QEMU without GUI. Git version."
-  depends=(
-    bzip2 libbz2.so
-    curl libcurl.so
-    dtc
-    fuse3
-    gcc-libs
-    glib2 libgio-2.0.so libglib-2.0.so libgmodule-2.0.so libgobject-2.0.so
-    gnutls
-    libaio
-    libbpf libbpf.so
-    libcacard
-    libcap-ng libcap-ng.so
-    libjpeg libjpeg.so
-    libnfs
-    libpng
-    libsasl
-    libseccomp libseccomp.so
-    libslirp libslirp.so
-    libssh libssh.so
-    libusb libusb-1.0.so
-    liburing liburing.so
-    libxkbcommon libxkbcommon.so
-    lzo
-    ndctl
-    numactl libnuma.so
-    ncurses libncursesw.so
-    pam libpam.so
-    pixman libpixman-1.so
-    seabios
-    snappy
-    spice libspice-server.so
-    systemd-libs libudev.so
-    usbredir
-    vde2
-    zlib
-    zstd libzstd.so
-  )
-  optdepends=('qemu-headless-arch-extra-git: extra architectures support')
-  conflicts=('qemu-headless' 'qemu' 'qemu-base')
-  provides=('qemu-headless' 'qemu')
-  replaces=(qemu-kvm)
-
-  _package headless
 }
 
 _package() {
@@ -332,7 +268,6 @@ _package() {
   rm -r firmware
 
   cd ..
-  if [ "$1" = headless ]; then rm -r {applications,icons}; fi
 }
 
 package_qemu-arch-extra-git() {
@@ -374,45 +309,6 @@ package_qemu-arch-extra-git() {
   conflicts=(qemu-arch-extra qemu-emulators-full)
 
   mv -v "$srcdir/../extra-arch-full/usr" "$pkgdir"
-}
-
-package_qemu-headless-arch-extra-git() {
-  pkgdesc="QEMU without GUI, for foreign architectures. Git version."
-  depends=(
-    dtc
-    fuse3
-    gcc-libs
-    gnutls
-    libaio
-    libbpf libbpf.so
-    glib2 libgio-2.0.so libglib-2.0.so libgobject-2.0.so libgmodule-2.0.so
-    libjpeg libjpeg.so
-    libpng
-    libsasl
-    libseccomp libseccomp.so
-    libslirp libslirp.so
-    liburing liburing.so
-    lzo
-    ndctl
-    numactl libnuma.so
-    pam libpam.so
-    pixman libpixman-1.so
-    snappy
-    qemu-headless-git
-    systemd-libs libudev.so
-    vde2
-    zlib
-    zstd libzstd.so
-  )
-  optdepends=(
-    'edk2-armvirt: for aarch64 UEFI support'
-    'edk2-ovmf: for ia32 and x64 UEFI support'
-  )
-  options=(!strip)
-  conflicts=(qemu-headless-arch-extra qemu-emulators-full)
-  provides=(qemu-headless-arch-extra)
-
-  mv -v "$srcdir/../extra-arch-headless/usr" "$pkgdir"
 }
 
 package_qemu-block-iscsi-git() {
