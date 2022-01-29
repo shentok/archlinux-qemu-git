@@ -12,7 +12,7 @@ pkgname=(
   qemu-headless-git
   qemu-arch-extra-git
   qemu-headless-arch-extra-git
-  qemu-block-{iscsi,rbd,gluster}-git
+  qemu-block-{iscsi,gluster}-git
   qemu-guest-agent-git
 )
 pkgdesc="A generic and open source machine emulator and virtualizer. Git version."
@@ -29,7 +29,6 @@ makedepends=(
   brltty
   bzip2
   cairo
-  ceph
   curl
   cdrtools
   dtc
@@ -278,7 +277,7 @@ _package() {
   chmod u+s qemu/qemu-bridge-helper
 
   # remove split block modules
-  rm qemu/block-{iscsi,rbd,gluster}.so
+  rm qemu/block-{iscsi,gluster}.so
 
   cd ../bin
 
@@ -420,15 +419,6 @@ package_qemu-block-iscsi-git() {
   provides=(qemu-block-iscsi)
 
   install -vDm 755 "$srcdir/../build-full/block-iscsi.so" -t "$pkgdir/usr/lib/qemu/"
-}
-
-package_qemu-block-rbd-git() {
-  pkgdesc="QEMU RBD block module. Git version."
-  depends=(glibc ceph-libs)
-  conflicts=(qemu-block-rbd)
-  provides=(qemu-block-rbd)
-
-  install -vDm 755 "$srcdir/../build-full/block-rbd.so" -t "$pkgdir/usr/lib/qemu/"
 }
 
 package_qemu-block-gluster-git() {
