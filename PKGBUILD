@@ -135,7 +135,6 @@ _build() (
     --enable-modules \
     --enable-sdl \
     --enable-slirp=system \
-    --enable-xen \
     --disable-werror \
     "${@:2}"
 
