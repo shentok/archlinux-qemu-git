@@ -135,6 +135,7 @@ _build() (
     --localstatedir=/var \
     --libexecdir=/usr/lib/qemu \
     --smbd=/usr/bin/smbd \
+    --enable-capstone \
     --enable-modules \
     --enable-sdl \
     --enable-xen \
@@ -150,6 +151,7 @@ package_qemu-git() {
     alsa-lib libasound.so
     bzip2 libbz2.so
     cairo
+    capstone
     curl libcurl.so
     dtc
     fuse3
