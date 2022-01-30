@@ -138,6 +138,7 @@ _build() (
     --enable-modules \
     --enable-sdl \
     --enable-xen \
+    --disable-debug-info \
     --enable-werror #\
     #"${@:2}"
 
