@@ -119,6 +119,7 @@ _build() (
     --enable-sdl \
     --enable-slirp=system \
     --disable-werror \
+    --disable-debug-info \
     "${@:2}"
 
   ninja
