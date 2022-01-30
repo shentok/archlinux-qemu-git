@@ -140,6 +140,7 @@ _build() (
     --enable-slirp=system \
     --enable-xen \
     --enable-werror \
+    --disable-debug-info \
     "${@:2}"
 
   ninja
