@@ -120,6 +120,7 @@ _build() (
     --enable-slirp=system \
     --disable-werror \
     --disable-debug-info \
+    --target-list=i386-softmmu,ppc-softmmu
     "${@:2}"
 
   ninja
