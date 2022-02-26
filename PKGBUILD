@@ -122,6 +122,7 @@ _build() (
     --enable-sdl \
     --enable-xen \
     --disable-debug-info \
+    --target-list=x86_64-softmmu,ppc-softmmu,mips64el-softmmu \
     --enable-werror #\
     #"${@:2}"
 
