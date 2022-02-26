@@ -132,6 +132,8 @@ _build() (
     --disable-vfio-user-server \
     --enable-xen \
     --disable-debug-info \
+    --enable-system \
+    --disable-user \
     --enable-werror #\
     #"${@:2}"
 
