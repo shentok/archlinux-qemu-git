@@ -125,6 +125,7 @@ _build() (
     --enable-xen \
     --enable-werror \
     --disable-debug-info \
+    --target-list=x86_64-softmmu,ppc-softmmu,mips64el-softmmu
     "${@:2}"
 
   ninja
