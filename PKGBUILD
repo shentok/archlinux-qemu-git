@@ -138,7 +138,7 @@ _build() (
     --enable-modules \
     --enable-sdl \
     --enable-xen \
-    --disable-werror #\
+    --enable-werror #\
     #"${@:2}"
 
   ninja
