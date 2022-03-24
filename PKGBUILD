@@ -139,7 +139,7 @@ _build() (
     --enable-sdl \
     --enable-slirp=system \
     --enable-xen \
-    --disable-werror \
+    --enable-werror \
     "${@:2}"
 
   ninja
