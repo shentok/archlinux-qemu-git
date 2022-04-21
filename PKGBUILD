@@ -138,6 +138,7 @@ _build() (
     --libexecdir=/usr/lib/qemu \
     --smbd=/usr/bin/smbd \
     --enable-capstone \
+    --enable-fdt=system \
     --enable-modules \
     --enable-sdl \
     --enable-vfio-user-server \
