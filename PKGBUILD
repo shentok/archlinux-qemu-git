@@ -133,6 +133,7 @@ _build() (
     --localstatedir=/var \
     --libexecdir=/usr/lib/qemu \
     --smbd=/usr/bin/smbd \
+    --disable-bpf \
     --enable-capstone \
     --enable-fdt=system \
     --enable-modules \
