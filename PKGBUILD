@@ -143,7 +143,7 @@ _build() (
     --enable-fdt=system \
     --enable-modules \
     --enable-sdl \
-    --enable-vfio-user-server \
+    --disable-vfio-user-server \
     --enable-xen \
     --disable-debug-info \
     --enable-werror #\
