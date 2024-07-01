@@ -145,7 +145,7 @@ _build() (
     --enable-sdl \
     --enable-vfio-user-server \
     --enable-xen \
-    --disable-werror #\
+    --enable-werror #\
     #"${@:2}"
 
   ninja
