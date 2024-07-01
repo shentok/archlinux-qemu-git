@@ -133,7 +133,7 @@ _build() (
     --disable-vfio-user-server \
     --enable-xen \
     --enable-debug-info \
-    --target-list=i386-softmmu,x86_64-softmmu,ppc-softmmu,ppc64-softmmu,mips64el-softmmu \
+    --target-list=i386-softmmu,x86_64-softmmu,ppc-softmmu,ppc64-softmmu,mips64el-softmmu,aarch64-softmmu \
     --enable-werror #\
     #"${@:2}"
 
