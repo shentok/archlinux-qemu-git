@@ -30,6 +30,7 @@ makedepends=(
   bzip2
   cairo
   capstone
+  cmocka
   curl
   cdrtools
   dtc
@@ -139,6 +140,7 @@ _build() (
     --smbd=/usr/bin/smbd \
     --enable-modules \
     --enable-sdl \
+    --enable-vfio-user-server \
     --enable-xen \
     --disable-werror #\
     #"${@:2}"
