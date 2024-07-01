@@ -146,6 +146,7 @@ _build() (
     --enable-sdl \
     --enable-vfio-user-server \
     --enable-xen \
+    --disable-debug-info \
     --enable-werror #\
     #"${@:2}"
 
