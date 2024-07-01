@@ -32,6 +32,7 @@ makedepends=(
   curl
   cdrtools
   dtc
+  edk2-ovmf
   fuse3
   gcc-libs
   gdk-pixbuf2
@@ -72,7 +73,6 @@ makedepends=(
   python-sphinx_rtd_theme
   sdl2
   sdl2_image
-  seabios
   snappy
   spice-protocol
   spice
