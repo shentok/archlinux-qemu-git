@@ -136,6 +136,7 @@ _build() (
     --enable-sdl \
     --disable-vfio-user-server \
     --enable-xen \
+    --enable-debug \
     --enable-debug-info \
     --enable-system \
     --disable-user \
