@@ -29,6 +29,7 @@ makedepends=(
   brltty
   bzip2
   cairo
+  capstone
   cmocka
   curl
   cdrtools
@@ -139,6 +140,7 @@ _build() (
     --localstatedir=/var \
     --libexecdir=/usr/lib/qemu \
     --smbd=/usr/bin/smbd \
+    --enable-capstone \
     --enable-modules \
     --enable-sdl \
     --enable-vfio-user-server \
