@@ -70,6 +70,8 @@ makedepends=(
   python
   python-sphinx
   python-sphinx_rtd_theme
+  rust
+  rust-bindgen
   sdl2
   sdl2_image
   snappy
@@ -126,8 +128,8 @@ _build() (
     --disable-curl \
     --enable-capstone \
     --enable-fdt=system \
-    --enable-modules \
     --enable-plugins \
+    --enable-rust \
     --enable-sdl \
     --disable-vfio-user-server \
     --enable-xen \
