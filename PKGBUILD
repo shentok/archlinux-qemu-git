@@ -127,6 +127,7 @@ _build() (
     --enable-capstone \
     --enable-fdt=system \
     --enable-modules \
+    --enable-plugins \
     --enable-sdl \
     --disable-vfio-user-server \
     --enable-xen \
