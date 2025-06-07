@@ -119,6 +119,8 @@ _build() (
   unset CXXFLAGS
 
   ${srcdir}/configure \
+    --cc=/usr/lib/ccache/bin/cc \
+    --cxx=/usr/lib/ccache/bin/c++ \
     --prefix=/usr \
     --sysconfdir=/etc \
     --localstatedir=/var \
