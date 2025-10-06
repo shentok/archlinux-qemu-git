@@ -67,6 +67,7 @@ makedepends=(
   pam
   pixman
   python
+  python-distlib
   python-sphinx
   python-sphinx_rtd_theme
   sdl2
