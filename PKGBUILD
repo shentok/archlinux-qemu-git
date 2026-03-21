@@ -46,6 +46,7 @@ makedepends=(
   libcacard
   libcap-ng
   libepoxy
+  libgcrypt
   libiscsi
   libnfs
   libpng
@@ -138,6 +139,8 @@ _build() (
     --enable-xen \
     --enable-debug \
     --enable-debug-info \
+    --disable-gnutls \
+    --enable-gcrypt \
     --enable-system \
     --disable-user \
     --enable-werror #\
@@ -159,7 +162,7 @@ package_qemu-git() {
     gcc-libs
     gdk-pixbuf2 libgdk_pixbuf-2.0.so
     glib2 libgio-2.0.so libglib-2.0.so libgmodule-2.0.so libgobject-2.0.so
-    gnutls
+    libgcrypt
     gtk3 libgdk-3.so libgtk-3.so
     jack libjack.so
     libaio
@@ -293,7 +296,7 @@ package_qemu-arch-extra-git() {
     dtc
     fuse3
     gcc-libs
-    gnutls
+    libgcrypt
     libaio
     libbpf libbpf.so
     glib2 libgio-2.0.so libglib-2.0.so libgobject-2.0.so libgmodule-2.0.so
